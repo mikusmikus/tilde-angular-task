@@ -1,0 +1,43 @@
+<div class="card">
+  <h3 class="title">Name: {{ person.name }} [id: {{ person.id }}]</h3>
+  <p>Balance: {{ person.balance.toFixed(2) }}</p>
+
+<div class="input-wrapper">
+  <div class="popup" *ngIf="namePopup">{{namePopup}}</div>
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>Select person</mat-label>
+    <mat-select [ngModel]="personId" (ngModelChange)="handleInputName($event)" >
+      <div *ngFor="let p of persons"  >
+        <mat-option [value]="p.id" *ngIf="p.name !== person.name" >
+          {{p.name}} [ id: {{p.id}}]
+        </mat-option>
+      </div>
+    </mat-select>
+  </mat-form-field>
+</div>
+  <div class="input-wrapper">
+    <div class="popup" *ngIf="sumPopup">{{sumPopup}}</div>
+    <mat-form-field floatLabel="auto" appearance="outline" color="primary">
+      <mat-label >Add sum</mat-label>
+      <input matInput type="number"  [ngModel]="sum" (ngModelChange)="handleInputSum($event)">
+      <mat-hint align="end">positive numbers only</mat-hint>
+    </mat-form-field>
+  </div>
+  <app-button (onClick)="handleMoneySend()" color="warn"> Send</app-button>
+  <app-button (onClick)="handleMoneyReceive()"> Receive</app-button>
+  <div *ngIf="person.loans.length" class="loans">
+	  <h4>Loans</h4>
+	  <ul>
+		  <li *ngFor="let loan of person.loans" [ngStyle]="{'background-color':loan.lender === person.name ? 'lightgreen' : '#ff9f9f' }">
+			<div class="persons">
+				<span>Lender: {{loan.lender}}</span>
+				<span> Receiver: {{loan.receiver}}</span>
+			  </div>
+			  <div class="sum">
+				<span>Sum: {{loan.sum.toFixed(2)}}</span>
+				<app-button [small]="true" *ngIf="person.name===loan.receiver" color="warn" (onClick)="handleLoanPayback(loan)"> Pay back</app-button>
+			  </div>
+		  </li>
+	  </ul>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="tilde-container">
+  <div class="exercise2">
+    <app-button (onClick)="createPerson()">Add Person</app-button>
+
+    <div class="cards-wrapper">
+      <app-card
+        *ngFor="let person of persons; let i = index"
+        [person]="person"
+        [persons]="persons"
+      >
+      </app-card>
+    </div>
+  </div>
+</div>

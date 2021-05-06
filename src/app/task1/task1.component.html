@@ -1,0 +1,16 @@
+<div class="tilde-container">
+  <div class="task1">
+    <div
+      class="paragraph-wrapper"
+      *ngFor="let paragraph of paragraphData; let i = index"
+    >
+      <app-button (onClick)="toogleParagraph(i)">{{
+        !paragraph.showExtraContent ? "Show extra" : "Hide extra"
+      }}</app-button>
+      <p class="paragraph">{{ paragraph.content }}</p>
+      <div class="extra-paragraph" #extra >
+        <p>{{ paragraph.extraContent }}</p>
+      </div>
+    </div>
+  </div>
+</div>
